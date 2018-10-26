@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<title>社区评论功能</title>
+	<meta charset="utf-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!--在vue.js的包的下导入vue-router包-->
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!--<a href="#/login">登录</a>
+		<a href="#/register">注册</a>-->
+		<!--router-link 默认渲染一个a标签，可以使用tag更改标签名字-->
+		<router-link to="/login" tag="span">登录</router-link>
+		<router-link to="/register">注册</router-link>
+		<!--router-link 默认渲染一个a标签，可以使用tag更改标签名字-->
+		<!--这是vue-router提供的元素，专门用来当作占位符的，将来路由规则匹配到的组件就会展示到这个router-view这个中去-->
+		<router-view></router-view>	
+	</div>
+
+	<template id = "login">
+		<div>
+			<p>登录组件</p>
+		</div>
+	</template>
+
+	<template id = "register">
+		<div>
+			<p>注册组件</p>
+		</div>
+	</template>
+	
+	<script type="text/javascript">
+		var login ={
+			template:'#login'
+		};
+		var register = {
+			template:'#register'
+		}
+		//新建一个路由对象，当导入vue-router包以后，就有了一个路由的构造函数VueRouter
+		var routerobj = new VueRouter({
+			//routes表示表示路由匹配规则
+			//每个路由规则都是一个对象，这个规则对象身上必须有两个属性
+			//属性1是path，表示监听哪个路由地址
+			//属性2是component，表示如果路由前面匹配到的path则展示component属性对应的那个组件
+			//注意：component的属性值必须是一个组建的模板对象不能是一个名称
+				routes:[
+					{path:'/',redirect:'/login'},
+					{path:'/login',component:login},
+					{path:'/register',component:register}
+				]
+			});
+
+		var app = new Vue({
+			el:'#app',
+			data:{},
+			methods:{},
+			router:routerobj
+		});
+	</script>
+</body>
+</html>
