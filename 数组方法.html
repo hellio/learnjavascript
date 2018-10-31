@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>数组的方法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+		*arr.slice(index,end)截取数组元素
+		*返回值：被截取的元素
+		*index:截取开始位置的索引
+		*end:截取结束位置的索引,不包括自身
+		*如果index和end的索引值使用负号则末位开始算起
+		*如果end为0就不截取
+		*/
+		var arr = [1,2,3,4,5];
+		var result = arr.slice(0,2);//返回新的被截取元素
+		var negative = arr.slice(1,-2);//end的索引值负号
+		console.log(negative);//(3) [1, 2, 3]
+		console.log(result);//(2) [1, 2]
+		console.log(arr);//原数组不变(5) [1, 2, 3, 4, 5]
+
+		/*
+		*splice(index,count,element,...)
+		*index 第一个被删除元素的索引
+		*count 删除的个数
+		*element第三个参数开始，在数组开头添加新元素
+		*返回值：被删除的元素
+		*注意：splice会改变原数组的状态
+		*如果splice(1,0)第二个参数为0则删除元素，且可以添加元素到制定索引的位置
+		*console.log(arr2.splice(0,0,'这个参数开始添加新元素',8,90,87,34,34,3345));
+		*console.log(arr2);//(2) [4, 5] 注意：splice()会删除数组slice()则不会
+		*/
+		var arr2 = [1,2,3,4,5,6];
+		//从索引为0的地方开始删除数组，删除个数为2
+			result = arr2.splice(0,2);
+		console.log(result);//(2) [1, 2]被删除的数组
+		//新数组
+		console.log(arr2);//(4) [3, 4, 5, 6]被删除后的新数组
+		//在数组开头添加7和8
+		arr2.splice(0,0,7,8);
+		//在索引为1的位置添加9和10
+		arr2.splice(1,0,9,10);//[7, 9, 10, 8, 3, 4, 5, 6]
+		console.log(arr2);
+
+		/*
+		*concat(arr)
+		*arr 参数为要添加的数组
+		*连接两个或者多个数组
+		*返回值：一个新的连接后的数组
+		*/
+		var arr3 = [1,2,3,4,5,6], arr4 = ['a','b','c','d'];
+			result = arr3.concat(arr4);//[1, 2, 3, 4, 5, 6, "a", "b", "c", "d"]
+			console.log(result);
+
+		/*
+		*reverse()
+		*作用：将一个数组取反
+		*返回值：一个序列颠倒的新数组
+		*/
+		var arr5 = ['a','b','c','d'];
+			result = arr5.reverse();
+			console.log(result);//(4) ["d", "c", "b", "a"]
+
+		/*
+		*split('分割符')
+		*括号内的参数为分隔符
+		*将一个字符串拆分为一个数组
+		*/
+		var str = "hello";
+			result = str.split('');
+			console.log(result); //["h", "e", "l", "l", "o"]
+
+		/*
+		*join()
+		*作用：将一个数组转换为字符串
+		*可以指定一个参数作为字符串的分隔符
+		*参数不填默认为逗号,若不需要分隔符可使用空字符串
+		*/
+		var arr6 = ["h", "e", "l", "l", "o"];
+			result = arr6.join('');
+			console.log(result);//hello
+
+		/*
+		*sort()
+		* - 可以对数组中元素进行排序
+		* - 也会影响原数组，默认会按照Unicode编码进行排序
+		* - 可以在sort()添加一个回调函数，指定排序规则
+		* 浏览器会根据回调函数的返回值来决定元素的顺序
+		* - 返回值为大于0：则元素交换位置
+		* - 返回值为小于0：则元素位置不变
+		* - 返回值为0;则认为两个元素相等不交换位置
+		*/
+		var arr7 = [5,6];
+		arr7.sort(function(a,b){
+			if(a<b){
+				return 1;
+			}else if(a>b){
+				return -1;
+			}else{
+				return 0;
+			}
+		});
+		console.log(arr7);//(2) [6, 5]
+
+		/*
+		*push()
+		*作用：向数组的末尾添加一个元素
+		*返回值：一个新的数组长度length
+		*/
+		var arr7 = [5,6,7,8];
+		result = arr7.push(9,10);
+		console.log(result);//返回数组的长度.length
+		console.log(arr7);//(6) [5, 6, 7, 8, 9, 10]
+
+		/*
+		*unshift()
+		*作用：向数组的开头添加一个元素
+		*返回值：一个新的数组长度length
+		*/
+		var arr8 = [5,6,7,8];
+		result = arr8.unshift(4,5);
+		console.log(result);//6
+		console.log(arr8);//(6) [4, 5, 5, 6, 7, 8]
+
+		/*
+		*pop()
+		*作用：删除数组的末位元素
+		*返回值：被删除的元素
+		*/	
+		var arr9 = [5,6,7,8];
+		result = arr9.pop();
+		console.log(result);//8
+		console.log(arr9);//(3) [5, 6, 7]
+
+		/*
+		*shift()
+		*作用：删除数组的开头元素
+		*返回值：被删除的元素
+		*/	
+		var arry = [5,6,7,8];
+		result = arry.shift();
+		console.log(result);//5
+		console.log(arry);//(3) [6, 7, 8]
+	</script>
+</body>
+</html>
