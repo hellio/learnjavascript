@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>正则表达式</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+		*正则表达式第一中方式
+		*语法：var 变量 = new RegExp('要匹配的内容','匹配模式')
+		*使用typeof检查正则对象，会返回一个object
+		*var reg = new RegExp('a')这个正则表达式可以检查一个字符串中含有a
+		*第一个参数表示要匹配的内容
+		*在构造函数中传递第二参数(字符串)作为匹配模式
+		*可以是
+		*	-	i 忽略大小写
+		*	-	g 全局匹配模式
+		*/
+		//新建一个RegExp()对象;查找字符串中是否包含有ol字符
+		//注意:在参数中匹配的字符超过一个必须紧挨着
+		var reg = new RegExp('ol','i');
+	    //待检索的字符串
+		var str = 'Hello world';
+		//正则表达式对象包含一个.test()的方法用来检索字符串中的某个字符,返回值true或者false
+		var result = reg.test(str);
+		console.log(result);
+
+		/*
+		*正则表达式第二中方式
+		*使用字面量的方式来创建正则表达式
+		*语法：var reg = /正则表达式/匹配模式
+		*/
+		var reg = /e/i;
+		result = reg.test("helloworld");
+		console.log(result);//true
+
+		//创建一个正则表达式检查字符中是否含有a或者b
+		// | 符号表示或者的意思
+		var reg = /a|b/i;
+		console.log(reg.test('bv'));//返回值为true
+
+		/*中括号[]里的内容也是表示|的意思
+		*[ab]==a | b
+		*[a-z]表示任意小写字母
+		*[A-Z]表示任意大写字母
+		*[A-z]表示任意大小写字母
+		*[0-9]表示任意数字
+		*/
+		reg = /[abc]/i;
+		var reg1 = /[a-z]/
+		var reg2 = /[A-z]/
+		console.log(reg.test("bkkk"));//true
+		console.log(reg1.test("bkkk"));//true
+		console.log(reg2.test("a"));//true
+
+		/*
+		*^表示除了，例如[^ab],表示是否包含除了ab以外的字符
+		*
+		*/
+		reg = /[^ab]/
+		console.log(reg.test('ab'));//返回false
+
+		/*
+		*search()
+		*	-	可以搜索字符串中是否含有直指定的内容
+		*	-	返回值：返回字符第一次出现的索引，如果没有返回true
+		*	-	参数可以传入正则表达式
+		*	-	search()不能进行全局匹配，也就是不能使用g
+		*/
+		var str1 = 'helloworld123';
+		result = str1.search("ll");
+		console.log(result);//返回true
+		/*
+		*搜索字符串中是否含有abc 或aec afc
+		*/
+		var str2 = 'adfadsabc';
+		result = str2.search(/a[ebf]c/);
+		console.log(result);//返回值6
+
+		/*
+		*match
+		*	-	可以根据正则表达式，从一个字符串中把符合条件的字符串的内容提取出来
+		*   -	返回值是一个数组对象
+		*/
+		var str3 = 'ababdsfdabab';
+		var keyword = str3.match(/ab/ig);//g进行全局匹配将所有符合值得提取到一个数组中
+		var keywords = str3.match(/ab/);//如果不进行全局匹配只会提取最先遇到的值到数组中
+		console.log(keyword);//["am"]
+		console.log(keywords);//["a", index: 8, input: "hello I am a woking", groups: undefined]
+
+		/*
+		*replace()
+		*	-	将字符串中指定内容替换为新的内容
+		*	-	参数：
+		*			1.被替换的内容
+		*	-		2.新的内容
+		*	-	默认只会提取一个
+		*/
+		var result = str3.replace(/working/i,'student');
+		console.log(result);
+		console.log(str3);
+
+		/*
+		*量词
+		*	-	可以设置一个内容出现的次数
+		*	-	只对前面的内容起作用，例如：ab{3},就是查找b个b连在一起
+		*	-	{n}出现三次
+		*	-	* 表示0个或多个，相当于{0,}
+		*	-	+ 至少一个，相当于{1,}
+		*	-	？0个或1个，相当于{0,1}
+		*/
+		reg = /(ab){3,}/i;//ab出现3次以上
+		reg = /ab{3}c/;//必须只有3个
+		reg = /ab{1,3};///出现1到3次
+		console.log(reg.test("abbbc"));
+
+		/*
+		*检查一个字符串是否以a开头
+		*	-	^a表示开头
+		*	-	$表示结尾
+		*/
+		reg = /^a/i;
+		console.log(reg.test("babhhfsk"));//false
+		reg = /^a$/;
+		console.log(reg.test("adfda"));//false
+		console.log(reg.test("a"));//true
+		reg = /^a|a$/;
+		console.log(reg.test("aaaaaaaaa"))//true
+
+		phonenum = "13560137274";
+		phonereg = /^1[3-9][0-9]{9}$/;
+		result = phonereg.test(phonenum);
+		console.log("是否为正确手机号"+(function(){return result?'yes':'no'}()));
+
+		/*
+		*\w
+		*	-	任意字母、数字、_
+		*\W
+		*	-	除了字母、数字、_
+		*\d
+		*	-	任意的数字
+		*\D
+		*	-	除了数字
+		*\s
+		*	-	空格
+		*\S
+		*	-	除了空格
+		*\b
+		*	-	单词边界
+		*\B	
+		*	-	除了单词边界	
+		*/
+		reg = /\bchild\b/;
+		console.log(reg.test("children"));//false
+		console.log(reg.test("child"));//true
+	</script>
+</body>
+</html>
