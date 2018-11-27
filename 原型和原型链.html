@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>原型和原型链</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	/*
+	*原型对象:prototype
+	*prototype是函数的一个属性，指向一个普通对象，该对象内的所有属性可以被用这个函数创建的对象继承。
+	*/
+	function person(){}
+	//为person的原型对象添加一个age属性，并赋值24；
+	person.prototype.age=24;
+	//用该函数新建一个对象
+	var obj = new person();
+	//prototype对象的属性可以被继承
+	console.log(obj.age);//输出24
+	//对象的__proto__属性指向函数的prototype属性
+	console.log(obj.__proto__===person.prototype);//ture
+
+
+	/*
+	*普通对象的原型对象指向Object的prototype属性
+	*/
+	var obj = {a:2,b:3,c:4};
+	console.log(obj.__proto__===Object.prototype);//true
+</script>
